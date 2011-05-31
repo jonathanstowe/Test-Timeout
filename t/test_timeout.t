@@ -1,5 +1,9 @@
 use Test::More tests => 4;
 
+use FindBin qw($Bin);
+
+use lib "$Bin/lib";
+
 use Test::TestHarness;
 
 my $pass = runtest("timeout_tests", "pass");

@@ -1,2 +1,6 @@
 0.01 2010.01.29
  - Initial release
+
+0.02 2011.05.31
+  - Revived from backpan
+  - Rolled in Test::TestHarness

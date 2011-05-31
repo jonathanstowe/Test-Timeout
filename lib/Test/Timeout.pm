@@ -7,7 +7,7 @@ my $failed = 0;
 use Test::More;
 use Test::Builder;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 NAME
 
@@ -49,7 +49,6 @@ of seconds to limit the test to.
 
 =cut
 
-my $Test = Test::Builder->new;
 my $PID = $$;
 
 sub import {
@@ -69,6 +68,7 @@ sub import {
 sub _fail_miserably {
   $failed = 1;
   fail("Took longer than $timeout seconds");
+  my $Test = Test::Builder->new();
   $Test->BAIL_OUT("Took too long");
 }
 

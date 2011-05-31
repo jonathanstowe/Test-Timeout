@@ -1,21 +1,22 @@
----
-abstract: 'Limit the amount of time tests can take'
+--- #YAML:1.0
+name:               Test-Timeout
+version:            0.02
+abstract:           Limit the amount of time tests can take
 author:
-  - 'Ryan Niebur <ryanryan52@gmail.com>'
-build_requires:
-  Test::TestHarness: 0
+    - Jonathan Stowe <jns@gellyfish.co.uk>
+license:            perl
+distribution_type:  module
 configure_requires:
-  Module::Build: 0.36
-generated_by: 'Module::Build version 0.3601'
-license: perl
+    ExtUtils::MakeMaker:  0
+build_requires:
+    ExtUtils::MakeMaker:  0
+requires:
+    perl:  5.010001
+no_index:
+    directory:
+        - t
+        - inc
+generated_by:       ExtUtils::MakeMaker version 6.57_05
 meta-spec:
-  url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
-name: Test-Timeout
-provides:
-  Test::Timeout:
-    file: lib/Test/Timeout.pm
-    version: 0.01
-resources:
-  license: http://dev.perl.org/licenses/
-version: 0.01
+    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:  1.4
