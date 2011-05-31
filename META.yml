@@ -1,0 +1,21 @@
+---
+abstract: 'Limit the amount of time tests can take'
+author:
+  - 'Ryan Niebur <ryanryan52@gmail.com>'
+build_requires:
+  Test::TestHarness: 0
+configure_requires:
+  Module::Build: 0.36
+generated_by: 'Module::Build version 0.3601'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Test-Timeout
+provides:
+  Test::Timeout:
+    file: lib/Test/Timeout.pm
+    version: 0.01
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.01

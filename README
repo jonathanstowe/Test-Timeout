@@ -1,0 +1,1 @@
+Sometimes perl modules get "stuck". The tests should take this into account and test to make sure that it doesn\'t happen. Test::Timeout makes this trivial by limiting the amount of time the test can run.
