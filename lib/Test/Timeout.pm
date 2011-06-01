@@ -1,10 +1,7 @@
 package Test::Timeout;
 
-my $do_end_test = 0;
-my $timeout;
 my $failed = 0;
 
-use Test::More;
 use Test::Builder;
 
 our $VERSION = '0.02';
@@ -49,36 +46,33 @@ of seconds to limit the test to.
 
 =cut
 
-my $PID = $$;
 
-sub import {
-  my $self = shift;
-  my %hash = @_;
-  if(!defined($hash{timeout}) or $hash{timeout} == 0) {
-#    return
-    die("Test::Timeout requires a timeout arguement");
-  }
-  $do_end_test = 1;
-  $timeout = $hash{timeout};
-  $SIG{ALRM} = \&_fail_miserably;
-  alarm($timeout);
-#  goto &Exporter::import;
-}
+sub import
+{
+   my ($self, %hash) = @_;
+   if ( !defined( $hash{timeout} ) or $hash{timeout} == 0 )
+   {
+      die("Test::Timeout requires a timeout arguement");
+   }
 
-sub _fail_miserably {
-  $failed = 1;
-  fail("Took longer than $timeout seconds");
-  my $Test = Test::Builder->new();
-  $Test->BAIL_OUT("Took too long");
-}
+   my $timeout     = $hash{timeout};
+   $SIG{ALRM}   = sub {
+                        $failed = 1;
+                        my $Test = Test::Builder->new();
+                        $Test->ok(0,"Took longer than $timeout seconds");
+                        $Test->BAIL_OUT("Took too long");
+                     };
 
-sub _all_done {
-  return 0 if $$ != $PID;
-  pass("Didn't take longer than $timeout seconds") if($failed == 0);
-}
+   my $PID = $$;
+   my $end_sub = sub {
+                        return 0 if $$ != $PID;
+                        my $Test = Test::Builder->new();
+                        $Test->ok(1,"Didn't take longer than $timeout seconds") 
+                           if ( $failed == 0 );
+                     };
 
-sub END {
-  if($do_end_test) {
-    _all_done();
-  }
+
+   eval 'END { &$end_sub(); }';
+
+   alarm($timeout);
 }
